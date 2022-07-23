@@ -27,8 +27,8 @@ namespace HFPS.Editors
             if (property.isExpanded)
             {
                 if (Localization)
-                    return SPACING * 7;
-                return SPACING * 8;
+                    return SPACING * 9;
+                return SPACING * 10;
             }
 
             return EditorGUIUtility.singleLineHeight;
@@ -103,6 +103,18 @@ namespace HFPS.Editors
                 videoClipRect.y += SPACING * (5 + space);
                 SerializedProperty m_VideoClip = property.FindPropertyRelative("videoClip");
                 EditorGUI.PropertyField(videoClipRect, m_VideoClip);
+
+                Rect useSoundRect = position;
+                useSoundRect.height = EditorGUIUtility.singleLineHeight;
+                useSoundRect.y += SPACING * (6 + space);
+                SerializedProperty m_useSound = property.FindPropertyRelative("useSound");
+                EditorGUI.PropertyField(useSoundRect, m_useSound);
+
+                Rect audioClipRect = position;
+                audioClipRect.height = EditorGUIUtility.singleLineHeight;
+                audioClipRect.y += SPACING * (7 + space);
+                SerializedProperty m_AudioClip = property.FindPropertyRelative("audioClip");
+                EditorGUI.PropertyField(audioClipRect, m_AudioClip);
 
                 EditorGUI.indentLevel--;
             }

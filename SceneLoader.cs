@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using ThunderWire.Scene;
 using ThunderWire.Input;
 using HFPS.UI;
-using UnityEngine.Video;
+using UnityEngine.Video; //
 
 #if TW_LOCALIZATION_PRESENT
 using ThunderWire.Localization;
@@ -30,8 +30,11 @@ namespace HFPS.Systems
 
             public Sprite Background;
 
-            public bool useVideoClip; 
-            public VideoClip videoClip;
+            public bool useVideoClip; // Will the scene use a video clip when loading?
+            public VideoClip videoClip; // Link to the video clip
+
+            public bool useSound;
+            public AudioClip audioClip;
         }
 
         public static SceneInfo CurrentInfo;
@@ -45,7 +48,8 @@ namespace HFPS.Systems
         public Text LevelNameText;
         public Text LevelDescriptionText;
         public Image LevelBackground;
-        public VideoPlayer LevelVideoPlayer;
+        public VideoPlayer LevelVideoPlayer; // Link to the video player
+        public AudioSource LevelAudioSource;
 
         [Header("Settings")]
         public bool SwitchManually;
@@ -110,6 +114,9 @@ namespace HFPS.Systems
                         {
                             LevelNameText.text = info.LevelName;
                             LevelDescriptionText.text = info.LevelDescription;
+
+                            ////////////// 
+
                             if (info.useVideoClip)
                             {
                                 LevelBackground.enabled = false;
@@ -123,6 +130,15 @@ namespace HFPS.Systems
                                 LevelBackground.enabled = true;
                                 LevelBackground.sprite = info.Background;
                             }
+
+                            if (info.useSound)
+                            {
+                                LevelAudioSource.clip = info.audioClip;
+                                LevelAudioSource.Play();
+                            }
+
+                            //////////////////
+
                             CurrentInfo = info;
                             break;
                         }
